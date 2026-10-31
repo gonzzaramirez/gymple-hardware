@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import config from '../vite.config.js';
 
-test('Vite React configuration targets dist without running a build', () => {
+test('Vite React configuration targets dist', () => {
   const pkg=JSON.parse(readFileSync(new URL('../package.json',import.meta.url)));
   assert.equal(pkg.scripts.dev,'vite');
   assert.equal(pkg.scripts.build,'vite build');

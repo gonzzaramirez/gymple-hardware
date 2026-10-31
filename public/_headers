@@ -1,0 +1,20 @@
+# Cloudflare Pages response headers. Copied verbatim into dist/ by Vite.
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'
+  Cache-Control: public, max-age=0, must-revalidate
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/guia-uso.md
+  Content-Type: text/plain; charset=utf-8
+
+/QA.md
+  Content-Type: text/plain; charset=utf-8
+
+/revision04-electrica.md
+  Content-Type: text/plain; charset=utf-8

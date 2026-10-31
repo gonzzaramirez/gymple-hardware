@@ -43,9 +43,9 @@ export default function App() {
   useLayoutEffect(() => { controller.current?.setView(view); }, [view]);
   useLayoutEffect(() => { document.body.dataset.theme = theme; }, [theme]);
   return <div ref={root}>
-    <a className="skip" href="#main-tabs">Ir a las vistas</a>
+    <a className="skip" href="#contenido">Ir a las vistas</a>
     <header><div className="brand">GYMPLE<span>LABORATORIO DEL PORTILLO</span></div><div className="header-tools"><span className="demo-tag">SIMULACIÓN LOCAL</span><button id="theme" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>{theme === 'light' ? 'Oscuro' : 'Claro'}</button></div></header>
-    <main>
+    <main id="contenido" tabIndex={-1}>
       <ViewTabs view={view} onChange={setView} />
       <FlowView active={view === 'flow'} />
       <PartsView active={view === 'parts'} />

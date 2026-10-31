@@ -26,4 +26,6 @@ Antes de intentar un piloto real leé [la guía técnica y sus pendientes](revis
 
 ## Cómo se sirve esta revisión
 
-La aplicación actual usa Vite+React. Para desarrollo: npm ci y npm run dev. No abre por file://. El servidor de desarrollo usa módulos/HMR locales, no valida DNI ni conecta equipos. La futura versión de producción requiere npm run build y publicar dist; ese build no fue ejecutado por la restricción del proyecto. No hay despliegueCloudflare aún.
+La aplicación usa Vite + React. Para desarrollo: `npm ci` y `npm run dev`. No abre por `file://`. El servidor de desarrollo usa módulos/HMR locales; no valida DNI ni conecta equipos.
+
+Para producción: `npm ci`, `npm run verify` y publicar `dist/` (Cloudflare Pages: build `npm run build`, salida `dist`, Node 24.11.0). El build y el bundle servido fueron verificados; las cabeceras de seguridad y caché están en `public/_headers`.

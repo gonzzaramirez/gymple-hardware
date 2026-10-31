@@ -9,7 +9,7 @@ import { GympleContent } from './gymple-content.js';
 import { GympleFlow } from './gymple-flow.js';
 import { GympleDevices } from './gymple-devices.js';
 import { GympleWorkshop } from './gymple-workshop.js';
-import { iso, coil } from '../anatomy/iso-kit.js';
+import { iso } from '../anatomy/iso-kit.js';
 /* Exactly three task views. Local-only DEMO flow; no DNI persistence or I/O. */
 export function mountLab(root, { onViewChange } = {}) {
 const $=s=>root.querySelector(s),$$=s=>[...root.querySelectorAll(s)],A=PortilloArt,F=GympleFlow,C=GympleContent,D=GympleDevices,M=GympleDemoModel;
