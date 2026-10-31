@@ -1,56 +1,71 @@
-# Revisión04 — qué muestra y qué falta verificar
+# Guía eléctrica del prototipo
 
-**La web es una demostración, no un equipo validado.** El ciclo automático no identifica un mecanismo físicamente construido. Ningún gesto didáctico habilita bloqueo real.
+**Esto es una maqueta, no una puerta instalada.** El ciclo automático no demuestra un mecanismo real. Ningún paso de esta guía habilita bloquear una puerta de verdad.
 
-## Movimiento: no hay bisagra milagrosa
+## La idea en una frase
 
-[El fabricante dormakaba explica](https://www.dormakaba.com/gb-en/offering/products/door-hardware/door-closers) que un cierrapuertas almacena energía cuando se abre y la libera para cerrar (sección “What are door closers?”). Esto NO acredita autoapertura. Un resorte que abre tendría que recuperar su energía para repetir; el imán no hace ese trabajo.
+Una caja impresa en 3D guarda la ESP32, el relé, el conversor y las borneras; afuera lleva la cerradura electromagnética. **Un solo transformador de 12 V alimenta todo**: el imán y el conversor que baja a 5 V. El numpad USB es la única entrada.
 
-[ASSA ABLOY describe un operador automático separado](https://shop.assaabloy.com/entrance-systems/distribution/en/assa-abloy-sw60) con funciones de apertura/cierre. Sirve para distinguir funciones, **no como selección de ese producto para este portillo**. Apertura, retorno, control de fuerzas, obstáculos, salida y aporte de energía siguen por diseñar/revisar presencialmente. Por eso no dibujamos un motor o una bisagra con prestaciones inventadas.
+## La puerta
 
-En la maqueta: sin energía en el imán→movimiento deseado de apertura→energía puede volver con hoja abierta SIN CONTACTO→retorno ilustrativo→retención ideal al alinear. No hay sensor de posición, medición de retención ni garantía de liberación.
+El imán de 12 V **traba** la armadura cuando la puerta está cerrada. No la abre. Abrir y cerrar a mano es parte de la maqueta. Para una puerta real falta definir el resorte o el cierre, la fuerza, el recorrido y la salida.
 
-## Una fuente no es una tensión
+La bisagra es un eje impreso con dos bujes. Si la puerta pesa, el eje se dobla: probá con la puerta puesta antes de confiar en ella.
 
-Arquitectura candidata:
+## Un transformador, dos ramas
 
-- Adaptador **externo, cerrado, aislado,12VDC**→distribución/protecciones dimensionadas.
-- Rama imán: contactos adecuados a cargaDC +liberación independiente. COM–NC es hipótesis, no borne identificado.
-- Rama control: DC–DC propuesto hacia tensión admisible por placa/shield; **5Vsolo si sus fichas lo admiten**. Alimentación de relé y niveles/driver/opto/masas dependen del módulo.
+- **Rama del imán:** 12 V → fusible → contacto del relé → botón de salida → bobina del imán. El botón de salida corta la alimentación sin pasar por la ESP32.
+- **Rama de la electrónica:** 12 V → fusible → conversor → 5 V → ESP32 y relé.
 
-No poner12V enGPIO ni asumir que una entrada marcada5V acepta12V. Una señalGPIO3,3V no es la fuente de una bobina.
+Usá un transformador **certificado, cerrado y de 12 V**. No lo abras, no le cambies el cable ni le pongas otra fuente “porque había”. Calculá los amperes con el imán y la electrónica andando; el pico del imán no es el consumo de reposo.
 
-### Referencia de fuente, no aprobación de compra
+Referencia documental, no compra aprobada: [Mean Well GST25A](https://www.meanwell.com/Upload/PDF/GST25A/GST25A-SPEC.PDF) (familia de 12 V). No identifica tu transformador ni prueba que alcance para este conjunto.
 
-[MEAN WELL GST25A, ficha primaria2026-04-03](https://www.meanwell.com/Upload/PDF/GST25A/GST25A-SPEC.PDF): **GST25A12-P1J,12V,2,08A** según tabla. Es una candidata documental de adaptador externo, NO la identificación de la fuente que tenés ni prueba de suficiencia del sistema. No se reproducen marcas de conformidad ni se deduce cumplimiento local del conjunto. Conector/polaridad, condiciones, cableado, protección por ramas y derating requieren revisión; no se abre ni interviene el adaptador.
+## La caja impresa
 
-Presupuesto a completar con valores verificados:
+La caja es la estructura: sostiene las placas y la cerradura. Dejá lugar para los conectores, la ventilación y el cable del transformador. La tapa va con tornillos, no a presión.
 
-`Ientrada12V = Iimán + Pcontrol/(12V × ηDC–DC) + otras cargas12V`
+La ESP32 va sobre una base de borneras. **No sueldes cables directo a los pines** si podés usar borneras. Los GPIO son de 3,3 V: mandan señal al módulo de relé, no alimentan la bobina del imán.
 
-No se suman corrientes de diferentes tensiones como si fueran la misma rama. Faltan consumo/picos/duty de cerradura, consumo máximo control/relé/terminal, eficiencia del buck, temperatura, caída de cable y reservas justificadas. Los300mA/12V citados para BPNET280 son aportados, no nominal corroborado ni medición. Un futuro actuador de apertura cambia por completo este presupuesto y NO está incluido. Por eso no se declara capacidad suficiente, fusible, TVS, diodo ni capacitor concreto.
+## El relé y el imán
 
-### Fuentes de electrónica
+El relé de 5 V separa la señal de la ESP32 de los 12 V del imán. Mirá la ficha del módulo: algunos ya traen optoacoplador y otros no. La entrada tiene que aceptar 3,3 V.
 
-- [Espressif, ESP32 datasheet](https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf): límites y niveles del chip; no identifica la placa/shield poseídos.
-- [Espressif, DevKitC user guide](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html): alternativas de alimentación mutuamente excluyentes en esa placa de referencia. No unirUSB y alimentación externa por suposición.
-- [Omron, precauciones de relés](https://www.ia.omron.com/product/cautions/36/safety_precautions.html): carga/contactos reales y efectos de supresión sobre tiempo de liberación. No extrapolar el ratingAC de un relé a su cargaDC inductiva.
-- [Fluke, mediciónDC](https://www.fluke.com/en-ie/learn/blog/digital-multimeters/how-to-measure-dc-voltage-with-a-digital-multimeter): COM y entradaV para tensión, noA/mA. Usar manual del instrumento. El tutorial permanece **SIN MEDIR**; no inventa un resultado aprobatorio.
+El imán es inductivo: poné un **diodo en paralelo con la bobina**, con el cátodo al positivo. Sin diodo, el corte mete un pico que puede matar el relé o la ESP32.
 
-## Qué se suelda y qué no
+El botón de salida va **en serie con la alimentación del imán**, no después del relé. En una puerta real es obligatorio y tiene que cortar aunque la ESP32 esté colgada.
 
-Se practica solo sobre un cupón separado sin alimentación; no sobre equipos conectados ni conductores de red. El soporte mantiene la pieza inmóvil. Preparación, consumible/flux, limpieza, temperatura y tiempos siguen las fichas reales del material/herramienta; no se inventan grados o segundos. Ventilación/extracción, ojos protegidos, manos fuera de la punta y soporte estable para el soldador son parte de la preparación. No se comprueba temperatura con los dedos.
+## Los 5 V
 
-Calentar la unión, aportar donde corresponde, retirar aporte, retirar punta, enfriar inmóvil e inspeccionar antes de aislar. Un dibujo brillante no prueba mojado, continuidad, resistencia mecánica ni ausencia de puentes. No usar el soldador para quemar aislación.
+El conversor tiene que entregar 5 V estables con la ESP32 y el relé conectados. Ajustalo **sin carga primero**, medí, y recién después conectá la placa. Si calienta o baja de 4,8 V, cambiá el módulo.
 
-- [Weller, transferencia de calor/productividad](https://www.weller-tools.com/us/en/productivity).
-- [Weller, manual de equipo y precauciones](https://www.weller-tools.com/sites/default/files/products/documents/WEL_WQB%204000SOPS_1.2.8_GB_2025.pdf): referencia de seguridad, no identifica el soldador del usuario.
-- [Phoenix Contact, problemas del estañado bajo terminal de tornillo](https://assets.phoenixcontact.com/file/be20e58a-773f-4be9-a3f9-43ed9b1dc431/media/original?Problem_with_tinning_wires.pdf=): no sustituir terminación/crimp adecuado por soldadura bajo presión del tornillo.
+Nunca conectes 12 V a la ESP32, a un GPIO ni a la línea de 3,3 V.
 
-Bornes se atornillan según fabricante; punteras se crimpan si el borne las admite. Soldadura no es requisito de una solución con borneras. El numpadPCUSB requiere host/interfaz y alimentación por determinar: no se conecta directamente aGPIO ni se infiereUSBhost de la presencia de un conectorUSB.
+## El numpad
 
-## Antes del piloto
+El numpad es USB y va a la **compu**, no a un GPIO. La app lee los dígitos y decide; la ESP32 recibe la orden por el sistema que todavía falta definir. No inventes un cable del USB a la placa.
 
-Obtener fotos legibles de ambas caras/modelos/pines de ESP32, shield, relé y fuente; ficha original de cerradura y herrajes; esquema revisado de fuente/buck/ramas/liberación/protecciones; identificar terminal e interfaz. Revisar bastidor, anclajes, recorrido/alineación, energía del movimiento, riesgos de atrapamiento/obstáculo, salida cotidiana/independiente yRF en hierro con profesional. Probar liberación independiente ANTES de permitir bloqueo. No asumir municipio, norma aplicable ni conformidad legal.
+## Medir antes de creer
 
-Esta publicación contiene únicamente la revisión vigente de la demostración. Los antecedentes del proyecto no son planos de montaje aprobados.
+- Multímetro en **V continua**. Punta negra en COM, roja en V.
+- Primero el transformador solo: 12 V.
+- Después el conversor solo: 5 V.
+- Recién con los dos valores bien, conectá la ESP32.
+- No midas 220 V. No midas con la puerta armada ni con el imán conectado.
+
+Referencias: [Fluke, medir tensión DC](https://www.fluke.com/en-ie/learn/blog/digital-multimeters/how-to-measure-dc-voltage-with-a-digital-multimeter) · [Espressif, ESP32](https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf) · [Omron, relés](https://www.ia.omron.com/product/cautions/36/safety_precautions.html).
+
+## Soldadura (opcional)
+
+Si soldás, practicá con retazos sueltos y desenchufados. Gafas, extracción y soporte para el soldador. No estañes el extremo que va a apretar un borne de tornillo: para eso va una ficha crimpeada. No inhales vapores ni toques la punta.
+
+## Antes de decir “está listo”
+
+- El transformador es el correcto y está cerrado.
+- El fusible coincide con el consumo real.
+- El diodo del imán está puesto.
+- El botón de salida corta el imán sin la ESP32.
+- La puerta cierra, el imán traba y la armadura no roza.
+- Alguien que sepa revisó las conexiones y la salida.
+
+Si falta cualquiera de estos puntos, no es una puerta: es una maqueta para mirar.

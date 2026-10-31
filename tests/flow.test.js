@@ -48,9 +48,9 @@ test('pause and fault cancel motion without queued actuation', () => {
   assert.equal(F.electrical(state).magnet,false);
 });
 
-test('current content is 17 parts and 33 lessons; measurement before connections', () => {
+test('current content is 17 parts and 33 lessons; cables before verification', () => {
   assert.equal(Object.keys(C.parts).length,17);
   assert.equal(C.lessons.length,33);
-  assert.ok(C.lessons.findIndex(l=>l.scene==='probe')<C.lessons.findIndex(l=>l.scene==='route'));
+  assert.ok(C.lessons.findIndex(l=>l.scene==='route')<C.lessons.findIndex(l=>l.scene==='probe'));
   assert.ok(C.lessons.some(l=>l.scene==='solder-tip'));
 });

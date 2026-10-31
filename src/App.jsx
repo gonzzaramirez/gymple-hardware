@@ -6,9 +6,9 @@ import { TechnicalHelp } from './components/TechnicalHelp.jsx';
 import { mountLab } from './lab/controller.js';
 
 const views = [
-  ['flow', 'Flujo completo'],
-  ['parts', 'Todas las partes del producto'],
-  ['tutorial', 'Tutorial: armado desde cero'],
+  ['flow', 'El ciclo'],
+  ['parts', 'Las piezas'],
+  ['tutorial', 'Armala desde cero'],
 ];
 
 function ViewTabs({ view, onChange }) {
@@ -44,14 +44,14 @@ export default function App() {
   useLayoutEffect(() => { document.body.dataset.theme = theme; }, [theme]);
   return <div ref={root}>
     <a className="skip" href="#contenido">Ir a las vistas</a>
-    <header><div className="brand">GYMPLE<span>LABORATORIO DEL PORTILLO</span></div><div className="header-tools"><span className="demo-tag">SIMULACIÓN LOCAL</span><button id="theme" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>{theme === 'light' ? 'Oscuro' : 'Claro'}</button></div></header>
+    <header><div className="brand">GYMPLE<span>TALLER DE LA PUERTA</span></div><div className="header-tools"><span className="demo-tag">MAQUETA LOCAL</span><button id="theme" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>{theme === 'light' ? 'Oscuro' : 'Claro'}</button></div></header>
     <main id="contenido" tabIndex={-1}>
       <ViewTabs view={view} onChange={setView} />
       <FlowView active={view === 'flow'} />
       <PartsView active={view === 'parts'} />
       <TutorialView active={view === 'tutorial'} />
       <TechnicalHelp />
-      <footer>GYMPLE / LABORATORIO LOCAL · SIN RED, FIRMWARE NI MEDICIONES REALES</footer>
+      <footer>GYMPLE / TALLER LOCAL · SIN INTERNET, SIN EQUIPOS CONECTADOS Y SIN MEDICIONES REALES</footer>
       <div id="announcement" className="sr-only" aria-live="polite" />
     </main>
   </div>;

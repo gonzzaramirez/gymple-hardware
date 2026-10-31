@@ -5,15 +5,15 @@ const GympleDemoModel=(()=>{
   const defaults=()=>({supply:true,control:true,network:true,emergency:false,halted:false,welded:false});
   function evaluate(input,command='none',angle=0){
     const s={...defaults(),...input};
-    let coil=false,contact='closed',magnet=true,reason='Reposo de la arquitectura propuesta: NC cerrado.';
+    let coil=false,contact='closed',magnet=true,reason='En reposo la cerradura queda trabada: el relé está en NC.';
     const remoteAvailable=s.supply&&s.control&&s.network&&!s.halted&&!s.emergency;
-    if(!s.supply){coil=false;magnet=false;reason='Sin 12 V: ambas ramas quedan sin alimentación en esta propuesta.';}
-    else if(!s.control){coil=false;magnet=true;reason='Sin 5 V de control, el relé desenergizado vuelve a NC. Con 12 V presentes, el electroimán puede seguir alimentado.';}
-    else if(s.halted||!s.network){coil=null;contact='unknown';magnet=null;reason=s.halted?'ESP bloqueado: el estado del mando no está definido por esta maqueta.':'Sin red/VPS: no inferimos el estado físico del relé ni una política offline no verificada.';}
-    else if(command==='authorized'){coil=true;contact='open';magnet=false;reason='Autorización simulada: bobina accionada, NC abierto. No se mueve la hoja.';}
-    else if(command==='denied'){reason='Denegación simulada: no se ordena liberar el electroimán.';}
-    if(s.welded&&s.supply){contact='closed';magnet=true;reason='Hipótesis de NC pegado: una orden del controlador no corta esta rama.';}
-    if(s.emergency){magnet=false;reason='Corte independiente propuesto: la rama de cerradura queda interrumpida sin depender del mando.';}
+    if(!s.supply){coil=false;magnet=false;reason='Sin 12 V no hay nada: ni imán ni electrónica.';}
+    else if(!s.control){coil=false;magnet=true;reason='Sin los 5 V de control, el relé vuelve a NC. Si hay 12 V, el imán puede seguir pegado.';}
+    else if(s.halted||!s.network){coil=null;contact='unknown';magnet=null;reason=s.halted?'ESP bloqueada: la maqueta no sabe qué hace el control.':'Sin internet no sabemos qué hace el relé. No inventamos una política offline.';}
+    else if(command==='authorized'){coil=true;contact='open';magnet=false;reason='Autorización de mentira: la bobina tira y el NC se abre. La puerta no se mueve sola.';}
+    else if(command==='denied'){reason='Denegado de mentira: no se libera el imán.';}
+    if(s.welded&&s.supply){contact='closed';magnet=true;reason='Si el NC queda pegado, la orden del control no corta esta rama.';}
+    if(s.emergency){magnet=false;reason='El botón de salida corta la rama del imán sin depender del control.';}
     // No supply also dominates a welded contact. Zero energy is not a door sensor.
     if(!s.supply)magnet=false;
     const leafOpen=angle>.01;

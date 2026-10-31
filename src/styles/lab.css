@@ -6,6 +6,8 @@
 /* The parts close-up uses a zoomed viewBox; clip the SVG viewport so neighbouring
    parts cannot spill over the card captions. */
 #parts-svg{overflow:hidden}
+/* 12 V cable of the maquette: a line with terminals, not decoration. */
+.gate-cable{stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 
 .key-hit{fill:transparent;stroke:none;pointer-events:all}
 

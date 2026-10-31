@@ -3,8 +3,8 @@ import { AnatomyLathe } from './anatomy-lathe.js';
 /* Anatomy world-space geometry. Drawing units, never fabrication dimensions. */
 const PortilloArt=(()=>{
   const G=AnatomyLathe,W=1000,H=650;
-  const gatePlan={x:-177,y:-55,w:410,d:212,r:9};
-  const P=fitProjection([...boxCorners(gatePlan,-20,0),[-155,0,150],[145,0,150],[-80,185,120]],W,H,{pad:48,azimuth:38,elevation:28});
+  const gatePlan={x:-190,y:-60,w:470,d:220,r:12};
+  const P=fitProjection([...boxCorners(gatePlan,-24,0),[-160,0,130],[260,0,130],[100,0,126],[260,130,34]],W,H,{pad:54,azimuth:38,elevation:29});
   const Q={origin:[500,355],scale:1.7,azimuth:40,elevation:37};
   const at=(p,q=P)=>iso(p,q);
   const round=(o,axis,len,r,q=P,tone='mid')=>solidSvg(G.solidOf([[0,r],[len,r]],G.frameAlong(o,axis),q,{steps:32}),{tone});
@@ -59,39 +59,74 @@ const PortilloArt=(()=>{
   function box(part,x,y,w,d,z,h,tone='mid',r=1,layer=2){const b={part,name:part+'-'+count++,plan:rect(x,y,w,d,r),z,h,tone,center:[x+w/2,y+d/2,z+h/2],layer};b.svg=block(b.plan,z,h,P,tone);fixed.push(b);return b;}
   function disk(part,x,y,z,r,h,tone='mid'){fixed.push({part,name:part+'-'+count++,center:[x,y,z+h/2],svg:round([x,y,z],[0,0,1],h,r,P,tone),layer:2});}
   function screw(part,x,y,z){fixed.push({part,name:part+'-'+count++,center:[x,y,z],svg:bolt(x,y,z,P),layer:2});}
-  for(const [x,y]of[[-156,-35],[207,-35],[-156,135],[207,135]])box('base',x,y,12,12,-20,7,'lo',3,0);
-  box('base',-177,-55,410,212,-13,13,'lo',9,1);
-  for(const x of[-122,107]){box('post',x,-24,48,48,0,5,'mid',3);box('post',x+9,-14,27,28,5,132,'mid',3);box('post',x+8,-15,29,30,137,3,'hi',3);for(const dx of[7,41])for(const y of[-17,17]){disk('post',x+dx,y,5,3,2,'hi');screw('post',x+dx,y,7);}box('post',x+9,-14,27,28,11,1,'lo',1);}
-  for(const z of[49,115]){
-    box('pivot',-89,-6,9,12,z-8,23,'mid',1);disk('pivot',-80,0,z-8,5,6);disk('pivot',-80,0,z+8,5,6);disk('pivot',-80,0,z-10,2,27,'hi');disk('pivot',-80,0,z+17,6,2,'hi');screw('pivot',-80,0,z+19);
-  }
-  // The contact faces meet at x=106 in the closed pose. No floating overhead lock.
-  box('magnet',106,-3,10,26,88,31,'hi',1);box('magnet',105.5,0,.5,20,91,25,'hi',.2);
-  box('magnet',116,-9,7,30,85,37,'mid',1);box('magnet',116,-9,18,5,85,37,'mid',1);
-  for(const z of[90,117])for(const y of[-5,17])box('magnet',116,y,3,3,z,3,'hi',.4);
-  // Electronics bracket, not part of the leaf or magnetic retention load path.
-  for(const z of[65,112])box('case',-144,-8,34,6,z,5,'mid',1);
-  box('case',-168,-7,29,31,57,69,'mid',3);box('case',-167,24,27,3,59,65,'hi',2);
-  for(const x of[-164,-144])for(const z of[63,120])box('case',x,27,2,1,z,2,'hi',.4);
-  for(const x of[-162,-149]){box('case',x,6,5,7,50,7,'mid',1);box('case',x+1,7,3,5,46,4,'lo',1);}
-  for(const z of[83,103])box('exit',139,-3,12,9,z,5,'mid',1);
-  box('exit',151,-3,25,9,75,37,'mid',2);box('exit',151,6,25,9,75,37,'hi',2);box('exit',157,15,13,3,86,17,'hi',1);
-  for(const x of[154,172])for(const z of[79,108])box('exit',x,15,2,1,z,2,'mid',.3);
-  box('source',158,47,53,34,0,17,'mid',4);box('source',161,50,47,28,17,.7,'hi',3);
-  function l(part,x,y,w,d,z,h,tone='mid',r=1){leaf.push({part,name:part+'-moving-'+count++,plan:rect(x,y,w,d,r),z,h,tone});}
-  l('leaf',-76,-4,178,8,116,10,'hi',3);l('leaf',-76,-4,178,8,40,8,'mid',2);
-  for(const x of[-76,94])l('leaf',x,-4,8,8,48,68,'mid',2);
-  for(const x of[-31,14,59])l('leaf',x,-2,4,4,48,68,'hi',1);
-  for(const z of[49,115])l('pivot',-80,-4,12,8,z,8,'hi',2);
-  l('armature',102,0,3.5,20,91,25,'hi',.4);l('armature',98,0,4,20,89,29,'mid',.5);
-  for(const z of[94,111])l('armature',100,-6,5,3,z,3,'hi',.4);
-  for(const x of[-71,96])for(const z of[44,121])l('leaf',x,-4.5,2,1,z,2,'hi',.3);
-  const rotate=(p,a)=>{const t=a*Math.PI/180;return[-80+(p[0]+80)*Math.cos(t)-p[1]*Math.sin(t),(p[0]+80)*Math.sin(t)+p[1]*Math.cos(t)];};
-  const shifts={base:[0,0,0],post:[0,0,0],pivot:[0,0,15],leaf:[0,0,25],armature:[-17,8,25],magnet:[25,-3,12],case:[-8,0,14],exit:[12,0,12],source:[10,0,8]};
+  function dot(part,x,y,z,size=.9,tone='lo'){fixed.push({part,name:part+'-'+count++,center:[x,y,z],svg:dotsSvg([at([x,y,z])],{size,tone}),layer:2});}
+  function roundPart(part,o,axis,len,r,tone='mid'){const c=o.map((v,i)=>v+axis[i]*len/2);fixed.push({part,name:part+'-'+count++,center:c,svg:round(o,axis,len,r,P,tone),layer:2});}
+  function layerLines(part,x,y,w,d,zs,h=.7){for(const z of zs)box(part,x,y,w,d,z,h,'faint',.2);}
+  // Printed tray base with rubber feet and a low rim.
+  for(const [x,y]of[[-180,-50],[264,-50],[-180,148],[264,148]])box('base',x,y,12,12,-24,8,'lo',3,0);
+  box('base',-190,-60,470,220,-16,13,'lo',12,1);
+  box('base',-184,-54,458,208,-3,3,'mid',10,1);
+  box('base',-186,-56,6,212,0,5,'mid',2,1);box('base',278,-56,6,212,0,5,'mid',2,1);box('base',-184,150,448,6,0,5,'mid',2,1);
+  box('base',-62,116,64,18,0,1.4,'hi',2,1);
+  for(let i=0;i<3;i++)box('base',-54+i*19,118,10,.8,.6,.4,'lo',.2,1);
+  // Hinge frame: one rounded printed post, no metal hardware.
+  box('post',-168,-30,46,60,0,8,'mid',8);
+  box('post',-162,-24,34,48,8,98,'mid',7);
+  box('post',-160,-22,30,44,106,12,'hi',7);
+  layerLines('post',-162.8,-24.6,31,.7,[26,50,74]);
+  box('post',-140,-10,14,20,28,74,'mid',4);
+  // Hinge: fixed pin and two bushings; the door turns around it.
+  disk('pivot',-126,0,18,1.8,96,'hi');
+  disk('pivot',-126,0,28,4.6,6,'hi');
+  disk('pivot',-126,0,98,4.6,6,'hi');
+  // Printed box: the only enclosure. Logic and terminals go inside; the
+  // lock mounts outside. Its left side is the door stop.
+  box('case',100,-40,90,80,0,70,'mid',7);
+  box('case',98,-42,94,84,70,7,'hi',7);
+  box('case',99,-41,92,82,68,1.4,'lo',5);
+  layerLines('case',101,39.9,88,.8,[18,36,54]);
+  for(const [x,y]of[[112,30],[178,30],[112,-30],[178,-30]])screw('case',x,y,76);
+  box('case',118,40.6,50,.8,48,12,'hi',1.5);
+  for(let i=0;i<3;i++)box('case',124,41.2,38,.5,51+i*3.5,.6,'lo',.2);
+  box('case',148,40.6,22,.6,26,12,'mid',1.4);
+  box('case',151,41.2,16,.6,29,6,'lo',.8);
+  roundPart('case',[112,40,14],[0,1,0],2.4,4.4,'hi');
+  roundPart('case',[112,42.4,14],[0,1,0],.8,2.8,'lo');
+  for(let i=0;i<3;i++)box('case',106,40.4,34,.5,4+i*4.6,1.6,'lo',.4);
+  // Electromagnetic lock on the face that meets the door.
+  box('magnet',92,-12,10,24,42,20,'hi',2);
+  box('magnet',91.2,-10,.8,20,45,14,'hi',.3);
+  box('magnet',102,-14,8,28,40,24,'mid',2);
+  // Exit button: a simple button on the inside.
+  roundPart('exit',[170,40,58],[0,1,0],2.4,4.6,'hi');
+  dot('exit',170,42.4,58,1.2,'lo');
+  // A single 12 V transformer beside the box.
+  box('source',200,90,60,40,0,28,'mid',5);
+  box('source',202,92,56,36,28,4,'hi',4);
+  box('source',200,90,60,40,22,1,'lo',3);
+  box('source',200,108,4,8,12,8,'hi',1);
+  dot('source',210,98,31,.9,'lo');
+  // A single 12 V cable from the transformer to the box.
+  const cablePts=[[200,110,16],[196,96,8],[194,66,8],[192,44,12],[190,40,16]].map(p=>at(p));
+  fixed.push({part:'source',name:'source-cable-'+count++,center:[195,75,10],layer:2,svg:lineSvg(pathOf(cablePts),{tone:'mid',className:'gate-cable'})+dotsSvg([cablePts[0],cablePts.at(-1)],{size:1.6,tone:'hi'})});
+  function l(part,x,y,w,d,z,h,tone='mid',r=1,layer=2){leaf.push({part,name:part+'-moving-'+count++,plan:rect(x,y,w,d,r),z,h,tone,layer});}
+  // Door: one printed panel with two recessed fields and a simple handle.
+  l('leaf',-122,-4,210,8,22,90,'hi',3);
+  l('leaf',-100,5,160,1,30,20,'mid',.6,3);
+  l('leaf',-100,5,120,1,60,32,'mid',.6,3);
+  l('leaf',-122,5,210,1.4,104,4,'mid',1,3);l('leaf',-122,5,210,1.4,22,4,'mid',1,3);
+  l('leaf',-122,5,4,1.4,28,76,'mid',1,3);l('leaf',84,5,4,1.4,28,76,'mid',1,3);
+  l('leaf',62,4,18,1,62,18,'mid',2,3);
+  l('leaf',56,8,28,4,72,5,'hi',2,3);
+  l('leaf',80,4,6,5,70,3,'mid',1,3);
+  for(const z of[40,64,88])l('leaf',-128,-5,7,10,z,8,'mid',2,3);
+  l('armature',84,-10,6,20,44,20,'hi',1,3);l('armature',80,-11,5,22,42,24,'mid',1,3);
+  l('leaf',86,-4,2,8,50,20,'mid',.5,3);
+  const rotate=(p,a)=>{const t=a*Math.PI/180;return[-126+(p[0]+126)*Math.cos(t)-p[1]*Math.sin(t),(p[0]+126)*Math.sin(t)+p[1]*Math.cos(t)];};
+  const shifts={base:[0,0,0],post:[-14,0,24],pivot:[-14,0,24],leaf:[0,26,54],armature:[0,26,54],magnet:[24,0,20],case:[34,0,40],exit:[34,0,40],source:[24,26,26]};
   function gate(angle=0,apart=0){
     const out=fixed.map(b=>{const d=shifts[b.part].map(v=>v*apart),v=axisVector(P,d);return{...b,center:b.center.map((v,i)=>v+d[i]),svg:b.svg,offset:v};});
-    for(const b of leaf){const d=shifts[b.part].map(v=>v*apart),plan=roundedPlan(b.plan,4).map(p=>{const r=rotate(p,angle);return[r[0]+d[0],r[1]+d[1]];}),c=rotate([b.plan.x+b.plan.w/2,b.plan.y+b.plan.d/2],angle);out.push({...b,layer:2,center:[c[0]+d[0],c[1]+d[1],b.z+b.h/2+d[2]],svg:solidSvg(extrude(plan,b.z+d[2],b.h,P,{bevel:.35}),{tone:b.tone,crease:'faint'})});}
-    for(const z of[49,115]){const d=shifts.pivot.map(v=>v*apart);out.push({part:'pivot',name:'pivot-moving-knuckle-'+z,layer:2,center:[-80+d[0],d[1],z+3+d[2]],svg:round([-80+d[0],d[1],z-2+d[2]],[0,0,1],10,5,P,'hi')});}
+    for(const b of leaf){const d=shifts[b.part].map(v=>v*apart),rr=Math.min(4,Math.max(.4,Math.min(b.plan.w,b.plan.d)/2)),plan=roundedPlan(b.plan,rr).map(p=>{const r=rotate(p,angle);return[r[0]+d[0],r[1]+d[1]];}),c=rotate([b.plan.x+b.plan.w/2,b.plan.y+b.plan.d/2],angle);out.push({...b,layer:b.layer??2,center:[c[0]+d[0],c[1]+d[1],b.z+b.h/2+d[2]],svg:solidSvg(extrude(plan,b.z+d[2],b.h,P,{bevel:.35}),{tone:b.tone,crease:'faint'})});}
     return out.sort((a,b)=>a.layer-b.layer||depthOf(a.center,P)-depthOf(b.center,P));
   }
   function electronics(apart=0){return Object.entries(detailParts).map(([part,svg])=>{const h={enclosure:0,shield:29,esp:72,relay:44,converter:39,protection:24,connectors:0}[part],v=axisVector(Q,[0,0,h*apart]);return{part,name:'electronics-'+part,svg,offset:v};});}

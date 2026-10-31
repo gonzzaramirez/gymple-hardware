@@ -1,10 +1,12 @@
-# Gymple — Vite + React
+# Gymple — puerta, caja y numpad
 
-Laboratorio visual Anatomy: **tres vistas**, numpad de PC frontal, ciclo ilustrativo del portillo, 17 partes y tutorial de 33 acciones. No es un control de acceso validado ni una demostración de identidad real. El mecanismo físico de apertura/retorno sigue por definir.
+Maqueta casera de una puerta: **una caja impresa en 3D con toda la lógica adentro**, la estructura, una cerradura electromagnética, **un solo transformador de 12 V** y un numpad USB. No es un control de acceso validado ni una demostración de identidad real. El mecanismo de apertura/retorno sigue por definir.
+
+Tres vistas: flujo con numpad, las 17 piezas de la maqueta y un tutorial de 33 pasos.
 
 ## Estado
 
-Versión **1.0.0**, lista para presentar como demostración local. El build de producción se ejecuta y se verifica; ver [Verificación](#verificación).
+Versión **1.0.0**, lista para presentar como maqueta local. El build de producción se ejecuta y se verifica; ver [Verificación](#verificación).
 
 ## Desarrollo
 
@@ -15,7 +17,7 @@ npm ci
 npm run dev
 ```
 
-Abrí http://127.0.0.1:5173 y probá 11111111 + Enter. 22222222 deniega; ningún otro número autoriza. No ingreses DNI reales. La app no guarda ni transmite la entrada ni controla equipos. Los checks guardan solo comprensión didáctica.
+Abrí http://127.0.0.1:5173 y probá 11111111 + Enter. 22222222 no entra; ningún otro número autoriza. No pongas DNI reales. La app no guarda ni transmite la entrada ni controla equipos. Los checks guardan solo comprensión.
 
 ## Verificación
 
@@ -36,10 +38,10 @@ npm run preview   # http://127.0.0.1:4173
 
 - `src/App.jsx`: estado React de vistas/tema y ciclo de vida.
 - `src/components/`: UI JSX de flujo, catálogo, tutorial y ayuda; listas/opciones renderizadas por React.
-- `src/lab/`: modelos puros, contenido y control de animación. El motor escribe SVG/readouts/propiedades de sus controles mediante una frontera imperativa con limpieza explícita; no provoca renders React por frame.
+- `src/lab/`: modelos puros, contenido y control de animación. El motor escribe SVG/readouts/propiedades de sus controles con una frontera imperativa y limpieza explícita; no provoca renders React por frame.
 - `src/anatomy/`: geometría local licenciada, módulos ESM sin CDN.
 - `public/`: guías, capturas, `robots.txt` y `_headers`; Vite los copia a `dist/`.
-- `tests/`: modelos, configuración y contrato de despliegue, sin ejecutar build.
+- `tests/`: modelos, configuración, contenido y contrato de despliegue, sin ejecutar build.
 - `scripts/verify-build.mjs`: control del contenido de `dist`.
 
 StrictMode está activo: el efecto dispone rAF, observers, listeners y handlers antes de montarse otra vez. Vite DEV usa peticiones de módulos y WebSocket HMR locales; eso no es un servidor de validación de DNI.
@@ -71,6 +73,6 @@ Nunca publicar `node_modules`, `src/` ni el repositorio como si fuera el bundle 
 
 ## Guías y límites
 
-[Uso](public/guia-uso.md) · [Electricidad, soldadura y fuentes](public/revision04-electrica.md) · [Verificación y límites](public/QA.md).
+[Uso](public/guia-uso.md) · [Electricidad, soldadura y el transformador](public/revision04-electrica.md) · [Qué se probó y qué no](public/QA.md).
 
-Sin backend, firmware, DNI reales, secretos ni historial interno. La fuente de referencia y la soldadura didáctica no aprueban montaje, seguridad ni egress. Recursos Anatomy conservan [su licencia](src/anatomy/LICENSE.txt); no se asigna otra licencia al proyecto.
+Sin backend, firmware, DNI reales, secretos ni historial interno. La fuente de referencia y la soldadura didáctica no aprueban montaje, seguridad ni salida a internet. Recursos Anatomy conservan [su licencia](src/anatomy/LICENSE.txt); no se asigna otra licencia al proyecto.

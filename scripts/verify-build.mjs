@@ -44,7 +44,6 @@ const required = [
   'capturas/flujo.png',
   'capturas/partes.png',
   'capturas/tutorial.png',
-  'capturas/ciclo.png',
   'capturas/soldadura-detalle.png',
 ];
 for (const file of required) {
