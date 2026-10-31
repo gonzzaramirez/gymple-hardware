@@ -1,4 +1,4 @@
-/* Anatomy iso-kit, MIT. Vendored ESM adapted to classic script for file://. */
+/* Anatomy iso-kit, MIT. Vendored geometry, explicit ESM exports. */
 const AZIMUTH = 45;
 const ELEVATION = 30;
 const SHADES = 4;
@@ -673,3 +673,5 @@ const ISO_CSS = `
 @media (max-width:560px){.iso-plate{padding:48px 12px 70px}.iso-plate-corner[data-corner="hint"]{bottom:18px}}
 @media (prefers-reduced-motion:reduce){.iso-line[data-flow],.iso-dots circle[data-pulse]{animation:none}}
 `;
+
+export { AZIMUTH, ELEVATION, SHADES, RADIANS, UNIT, cameraOf, iso, towardViewer, depthOf, tenth, pathOf, joinPaths, roundedPlan, signedArea, oriented, convexHull, runsOf, extrude, ringOf, slabOf, circleRing, cylinder, insetPlan, onTop, planOutline, lineOnTop, segment, rise, ring, pointsAt, dotGrid, corners, boxCorners, knurl, sideArc, ringSeam, sideSeam, sideRing, coil, topTicks, sideTicks, radialTicks, haloOf, axisVector, fine, translateAlong, thousandth, axesAt, matrixOf, holdStill, topMatrix, sideMatrix, screenRise, fitProjection, escape, attrs, solidSvg, lineSvg, dotsSvg, fadedSvg, fadeLineSvg, wireSvg, faceTextSvg, groupSvg, figureSvg, swatchSvg, plateHtml, pageHtml, PAGE_CSS, ISO_CSS };

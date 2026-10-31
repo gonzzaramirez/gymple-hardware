@@ -1,4 +1,5 @@
-/* Anatomy lathe, MIT. Classic-script namespace adaptation, no geometry changes. */
+import { cameraOf, iso, pathOf, signedArea, oriented, runsOf, segment, rise, ring, fine } from '../anatomy/iso-kit.js';
+/* Anatomy lathe, MIT. Local ESM namespace, no geometry changes. */
 const AnatomyLathe = (() => {
 
 const TAU = Math.PI * 2;
@@ -1186,3 +1187,4 @@ function arcPoints(F, s, r, a0, a1, steps = 24) {
 
 return {frameAlong,solidOf,lathe,sphereOf};
 })();
+export { AnatomyLathe };

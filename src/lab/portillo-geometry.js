@@ -1,3 +1,5 @@
+import { iso, depthOf, pathOf, roundedPlan, extrude, slabOf, cylinder, planOutline, ring, boxCorners, haloOf, axisVector, fitProjection, solidSvg, lineSvg, dotsSvg } from '../anatomy/iso-kit.js';
+import { AnatomyLathe } from './anatomy-lathe.js';
 /* Anatomy world-space geometry. Drawing units, never fabrication dimensions. */
 const PortilloArt=(()=>{
   const G=AnatomyLathe,W=1000,H=650;
@@ -96,3 +98,4 @@ const PortilloArt=(()=>{
   return Object.freeze({P,Q,gate,electronics,detailsAt,rotate,detailSolids,partCount:count,baseHalo:`<path class="iso-halo" d="${haloOf(gatePlan,-20,15,P)}"/>`});
 
 })();
+export { PortilloArt };

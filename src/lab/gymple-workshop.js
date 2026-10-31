@@ -1,3 +1,10 @@
+import { iso, pathOf, axisVector, solidSvg, lineSvg, dotsSvg } from '../anatomy/iso-kit.js';
+import { AnatomyLathe } from './anatomy-lathe.js';
+import { PortilloArt } from './portillo-geometry.js';
+import { GympleContent } from './gymple-content.js';
+import { GympleDevices } from './gymple-devices.js';
+import { GympleTools } from './gymple-tools.js';
+import { GympleElectric } from './gymple-electric.js';
 /* Workshop gestures reused from v2; current-proposal content/storage are independent. */
 const GympleWorkshop=(()=>{
  const T=GympleTools,A=PortilloArt,G=AnatomyLathe,K=GympleContent;
@@ -27,3 +34,5 @@ const GympleWorkshop=(()=>{
  }
  return Object.freeze({Scene,span,passive});
 })();
+
+export { GympleWorkshop };

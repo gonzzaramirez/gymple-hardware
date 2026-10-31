@@ -1,3 +1,4 @@
+
 /* Conventional front-on PC keypad. USB interface/model not selected. */
 const GympleDevices=(()=>{
  const keySpecs=[['Num Lock',0,0,1,1,'noop'],['/',1,0,1,1,'noop'],['*',2,0,1,1,'noop'],['−',3,0,1,1,'noop'],['7',0,1,1,1,'7'],['8',1,1,1,1,'8'],['9',2,1,1,1,'9'],['+',3,1,1,2,'noop'],['4',0,2,1,1,'4'],['5',1,2,1,1,'5'],['6',2,2,1,1,'6'],['1',0,3,1,1,'1'],['2',1,3,1,1,'2'],['3',2,3,1,1,'3'],['Enter',3,3,1,2,'submit'],['0',0,4,2,1,'0'],['.',2,4,1,1,'noop']];
@@ -6,3 +7,5 @@ const GympleDevices=(()=>{
  terminal+='</g><g class="dni-display"><rect x="10" y="7" width="286" height="57" rx="7"/><text x="153" y="43" id="terminal-digits" text-anchor="middle">········</text><text id="terminal-status" hidden>DEMO</text></g>';
  return Object.freeze({terminal,server:'',P:{origin:[0,0],scale:1,azimuth:0,elevation:0},R:{},keys:keySpecs.map(k=>k[5]),descriptions:{}});
 })();
+
+export { GympleDevices };

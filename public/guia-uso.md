@@ -1,6 +1,6 @@
 # Usá la demo Gymple
 
-1. Abrí [index.html](index.html).
+1. Abrí la aplicación servida por Vite: npm run dev y http://127.0.0.1:5173.
 2. Ingresá **11111111** con el numpad frontal o tu teclado y apretá **Enter**.
 3. Observá liberación, apertura ilustrativa, espera y retorno lento. El imán retiene idealmente solo cuando la hoja vuelve a alinear.
 
@@ -24,6 +24,6 @@ La soldadura se practica en retazos independientes, sin alimentación ni equipo 
 
 Antes de intentar un piloto real leé [la guía técnica y sus pendientes](revision04-electrica.md). Fuente, buck, relé, shield, cerradura, interfazUSB, circuito, protecciones, mecanismos, herrajes,RF y salida requieren identificación y revisión presencial. No hay cumplimiento legal declarado.
 
-## Versión offline
+## Cómo se sirve esta revisión
 
-Descargá [el ZIP](descargas/gymple-demo-v04.zip), extraelo completo y abrí index.html. Incluye recursos locales, sin dependencias remotas, instalación ni compilación. El ZIP omite esta descarga recursiva.
+La aplicación actual usa Vite+React. Para desarrollo: npm ci y npm run dev. No abre por file://. El servidor de desarrollo usa módulos/HMR locales, no valida DNI ni conecta equipos. La futura versión de producción requiere npm run build y publicar dist; ese build no fue ejecutado por la restricción del proyecto. No hay despliegueCloudflare aún.

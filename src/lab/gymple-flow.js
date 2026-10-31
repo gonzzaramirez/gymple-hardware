@@ -1,3 +1,5 @@
+import { coil } from '../anatomy/iso-kit.js';
+import { GympleDemoModel } from './demo-model.js';
 /* Local fixtures; automatic motion is desired behaviour, NOT a selected mechanism. */
 const GympleFlow=(()=>{
  const ALLOW='11111111',DENY='22222222',moving=new Set(['released','opening','open','closing']);
@@ -17,3 +19,5 @@ const GympleFlow=(()=>{
  const snapshot=s=>({phase:s.phase,inputLength:s.input.length,fixture:s.input===ALLOW?'allow':s.input===DENY?'deny':'other',elapsed:s.elapsed,paused:s.paused,angle:s.angle,targetAngle:s.targetAngle,relay:s.relay,epoch:s.epoch,env:{...s.env},state:electrical(s)});
  return Object.freeze({ALLOW,DENY,create,edit,fill,submit,advance,reset,fault,manualFault,tick,electrical,command,busy,snapshot,push:()=>false,close:()=>false});
 })();
+
+export { GympleFlow };

@@ -1,3 +1,4 @@
+
 /* Spanish didactic content only. No hardware approval, DNI storage or physical I/O. */
 const GympleContent=(()=>{
   'use strict';
@@ -69,3 +70,5 @@ const GympleContent=(()=>{
   const lessons=[...coreLessons.slice(0,12),...powerLessons,coreLessons[17],coreLessons[18],...coreLessons.slice(12,16),...solderLessons,coreLessons[16],coreLessons[19],coreLessons[20]];
   return Object.freeze({parts,groups,lessons});
 })();
+
+export { GympleContent };

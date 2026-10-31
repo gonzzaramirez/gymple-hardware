@@ -1,3 +1,4 @@
+import { coil } from '../anatomy/iso-kit.js';
 /* Pure model of an explicitly proposed COM-NC architecture. NO I/O, no network. */
 const GympleDemoModel=(()=>{
   'use strict';
@@ -22,3 +23,5 @@ const GympleDemoModel=(()=>{
   const follow=(current,target,dt,still=false)=>still||Math.abs(target-current)<.0005?target:current+(target-current)*(1-Math.exp(-Math.min(dt,1/30)/.22));
   return Object.freeze({defaults,evaluate,clamp,follow,revision:'propuesta-bpnet-v01',pulseSeconds:3});
 })();
+
+export { GympleDemoModel };

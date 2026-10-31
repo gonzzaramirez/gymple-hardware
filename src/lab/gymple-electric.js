@@ -1,4 +1,7 @@
-/* Anatomy closeups for the v04 tutorial. Classic script; no DOM, I/O or electrical approval.
+import { iso, pathOf, slabOf, cylinder, planOutline, segment, ring, topTicks, axisVector, topMatrix, solidSvg, lineSvg, dotsSvg, faceTextSvg } from '../anatomy/iso-kit.js';
+import { AnatomyLathe } from './anatomy-lathe.js';
+import { GympleDevices } from './gymple-devices.js';
+/* Anatomy closeups for the v04 tutorial. Local ESM; no DOM, I/O or electrical approval.
  * draw(scene, p) returns SVG children for the existing 840 x 560 tutorial canvas, or null.
  * Routes are deliberately OPEN conceptual traces, not a terminal-to-terminal wiring plan.
  * Soldering depicts an isolated practice coupon, never a screw-terminal wire end.
@@ -215,3 +218,5 @@ const GympleElectric=(()=>{
   function draw(scene,p){if(!scenes.includes(scene))return null;p=clamp(p);return scene.startsWith('solder-')?solder(scene,p):electrical(scene,p);}
   return Object.freeze({draw,scenes:Object.freeze(scenes)});
 })();
+
+export { GympleElectric };

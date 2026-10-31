@@ -1,4 +1,6 @@
-/* Reused and isolated workshop tool art. Classic script, no legacy UI/storage. */
+import { iso, slabOf, cylinder, planOutline, lineOnTop, ring, topTicks, topMatrix, solidSvg, lineSvg, dotsSvg, faceTextSvg } from '../anatomy/iso-kit.js';
+import { AnatomyLathe } from './anatomy-lathe.js';
+/* Reused and isolated workshop tool art. Local ESM, no legacy UI/storage. */
 const GympleTools=(()=>{
  const G=AnatomyLathe;
  const P={origin:[420,300],scale:1.38,azimuth:43,elevation:38};
@@ -65,3 +67,5 @@ const GympleTools=(()=>{
 
  return Object.freeze({P,D,M,at,s,c,rod,screw,toolOrigin,probeOrigin,portBlack,portRed,contactBlack,contactRed,knobIndicator,art:{bench,driver:screwdriver,screw:turningScrew,caliper,jaw,sample:measureSample,wire,core,sleeve,offcut,ferrule,clamp,upper:upperJaw,lower:lowerJaw,labels,camera,meter,posts,blackProbe:probe('black'),redProbe:probe('red'),clipboard,book,cover,lidBolts,unitTag}});
 })();
+
+export { GympleTools };
