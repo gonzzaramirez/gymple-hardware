@@ -23,3 +23,10 @@ test('entry is a real JSX module, not classic-script static HTML', () => {
   assert.doesNotMatch(app,/<TutorialView/);
   assert.doesNotMatch(app,/dangerouslySetInnerHTML/);
 });
+
+test('the controller does not reference modules that were removed', () => {
+  const ctrl=readFileSync(new URL('../src/lab/controller.js',import.meta.url),'utf8');
+  assert.doesNotMatch(ctrl,/GympleWorkshop/);
+  assert.doesNotMatch(ctrl,/renderTutorial|selectLesson|tutorialIndex/);
+  assert.doesNotMatch(ctrl,/part-select/);
+});
