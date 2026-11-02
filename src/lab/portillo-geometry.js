@@ -62,23 +62,25 @@ const PortilloArt=(()=>{
   function dot(part,x,y,z,size=.9,tone='lo'){fixed.push({part,name:part+'-'+count++,center:[x,y,z],svg:dotsSvg([at([x,y,z])],{size,tone}),layer:2});}
   function roundPart(part,o,axis,len,r,tone='mid'){const c=o.map((v,i)=>v+axis[i]*len/2);fixed.push({part,name:part+'-'+count++,center:c,svg:round(o,axis,len,r,P,tone),layer:2});}
   function layerLines(part,x,y,w,d,zs,h=.7){for(const z of zs)box(part,x,y,w,d,z,h,'faint',.2);}
-  // Printed tray base with rubber feet and a low rim.
-  for(const [x,y]of[[-180,-50],[264,-50],[-180,148],[264,148]])box('base',x,y,12,12,-24,8,'lo',3,0);
-  box('base',-190,-60,470,220,-16,13,'lo',12,1);
-  box('base',-184,-54,458,208,-3,3,'mid',10,1);
-  box('base',-186,-56,6,212,0,5,'mid',2,1);box('base',278,-56,6,212,0,5,'mid',2,1);box('base',-184,150,448,6,0,5,'mid',2,1);
-  box('base',-62,116,64,18,0,1.4,'hi',2,1);
-  for(let i=0;i<3;i++)box('base',-54+i*19,118,10,.8,.6,.4,'lo',.2,1);
-  // Hinge frame: one rounded printed post, no metal hardware.
-  box('post',-168,-30,46,60,0,8,'mid',8);
-  box('post',-162,-24,34,48,8,98,'mid',7);
-  box('post',-160,-22,30,44,106,12,'hi',7);
-  layerLines('post',-162.8,-24.6,31,.7,[26,50,74]);
-  box('post',-140,-10,14,20,28,74,'mid',4);
-  // Hinge: fixed pin and two bushings; the door turns around it.
-  disk('pivot',-126,0,18,1.8,96,'hi');
-  disk('pivot',-126,0,28,4.6,6,'hi');
-  disk('pivot',-126,0,98,4.6,6,'hi');
+  // Metal base plate: 8 mm steel anchored to the floor.
+  for(const [x,y]of[[-170,-46],[246,-46],[-170,130],[246,130]])screw('base',x,y,1);
+  box('base',-180,-56,436,200,-8,8,'lo',2,1);
+  box('base',-176,-52,428,192,-2,3,'mid',3,1);
+  box('base',-62,106,64,18,1,1.2,'hi',2,1);
+  for(let i=0;i<3;i++)box('base',-54+i*19,108,10,.8,2.2,.4,'lo',.2,1);
+  // Steel post: square tube welded onto its own base plate.
+  box('post',-174,-36,60,76,-8,8,'lo',2,1);
+  box('post',-168,-30,46,64,0,104,'mid',2,1);
+  box('post',-168,-30,46,64,104,5,'hi',2,1);
+  box('post',-170,-32,50,68,0,2,'lo',2,1);
+  for(const [x,y]of[[-166,-26],[-166,26]])screw('post',x,y,3);
+  // Steel barrel hinge: three knuckles around one pin, bolted to the post.
+  roundPart('pivot',[-124,-14,10],[0,0,1],22,6,'mid');
+  roundPart('pivot',[-124,-14,44],[0,0,1],16,6,'hi');
+  roundPart('pivot',[-124,-14,72],[0,0,1],22,6,'mid');
+  disk('pivot',-124,-14,24,2.2,64,'hi');
+  box('pivot',-140,-6,18,12,42,14,'mid',1);
+  screw('pivot',-136,0,56);
   // Printed box: the only enclosure. Logic and terminals go inside; the
   // lock mounts outside. Its left side is the door stop.
   box('case',100,-40,90,80,0,70,'mid',7);
@@ -110,23 +112,29 @@ const PortilloArt=(()=>{
   const cablePts=[[200,110,16],[196,96,8],[194,66,8],[192,44,12],[190,40,16]].map(p=>at(p));
   fixed.push({part:'source',name:'source-cable-'+count++,center:[195,75,10],layer:2,svg:lineSvg(pathOf(cablePts),{tone:'mid',className:'gate-cable'})+dotsSvg([cablePts[0],cablePts.at(-1)],{size:1.6,tone:'hi'})});
   function l(part,x,y,w,d,z,h,tone='mid',r=1,layer=2){leaf.push({part,name:part+'-moving-'+count++,plan:rect(x,y,w,d,r),z,h,tone,layer});}
-  // Door: one printed panel with two recessed fields and a simple handle.
-  l('leaf',-122,-4,210,8,22,90,'hi',3);
-  l('leaf',-100,5,160,1,30,20,'mid',.6,3);
-  l('leaf',-100,5,120,1,60,32,'mid',.6,3);
-  l('leaf',-122,5,210,1.4,104,4,'mid',1,3);l('leaf',-122,5,210,1.4,22,4,'mid',1,3);
-  l('leaf',-122,5,4,1.4,28,76,'mid',1,3);l('leaf',84,5,4,1.4,28,76,'mid',1,3);
+  // Steel door: one folded sheet with a stiffener, a pull handle and a Z anchor.
+  l('leaf',-122,-4,210,8,22,90,'mid',1,3);
+  l('leaf',-122,-5,4,10,22,90,'hi',1,3);
+  l('leaf',84,-5,4,10,22,90,'hi',1,3);
+  l('leaf',-122,-5,210,10,22,4,'hi',1,3);
+  l('leaf',-122,-5,210,10,108,4,'hi',1,3);
+  l('leaf',-108,3.4,136,2.2,64,9,'lo',1,3);
   l('leaf',62,4,18,1,62,18,'mid',2,3);
   l('leaf',56,8,28,4,72,5,'hi',2,3);
   l('leaf',80,4,6,5,70,3,'mid',1,3);
   for(const z of[40,64,88])l('leaf',-128,-5,7,10,z,8,'mid',2,3);
-  l('armature',84,-10,6,20,44,20,'hi',1,3);l('armature',80,-11,5,22,42,24,'mid',1,3);
+  // Z anchor: upper flange, web and the contact face that meets the magnet.
+  l('armature',84,-9,4,18,58,10,'hi',.5,3);
+  l('armature',86,-7,4,14,42,16,'mid',.5,3);
+  l('armature',88,-9,5,18,40,7,'hi',.5,3);
   l('leaf',86,-4,2,8,50,20,'mid',.5,3);
   const rotate=(p,a)=>{const t=a*Math.PI/180;return[-126+(p[0]+126)*Math.cos(t)-p[1]*Math.sin(t),(p[0]+126)*Math.sin(t)+p[1]*Math.cos(t)];};
   const shifts={base:[0,0,0],post:[-14,0,24],pivot:[-14,0,24],leaf:[0,26,54],armature:[0,26,54],magnet:[24,0,20],case:[34,0,40],exit:[34,0,40],source:[24,26,26]};
+  // Steel gets a cool tone; the printed case keeps the warm one.
+  const METAL=new Set(['base','post','pivot','leaf','armature']),metal=(part,svg)=>METAL.has(part)?`<g class="metal">${svg}</g>`:svg;
   function gate(angle=0,apart=0){
-    const out=fixed.map(b=>{const d=shifts[b.part].map(v=>v*apart),v=axisVector(P,d);return{...b,center:b.center.map((v,i)=>v+d[i]),svg:b.svg,offset:v};});
-    for(const b of leaf){const d=shifts[b.part].map(v=>v*apart),rr=Math.min(4,Math.max(.4,Math.min(b.plan.w,b.plan.d)/2)),plan=roundedPlan(b.plan,rr).map(p=>{const r=rotate(p,angle);return[r[0]+d[0],r[1]+d[1]];}),c=rotate([b.plan.x+b.plan.w/2,b.plan.y+b.plan.d/2],angle);out.push({...b,layer:b.layer??2,center:[c[0]+d[0],c[1]+d[1],b.z+b.h/2+d[2]],svg:solidSvg(extrude(plan,b.z+d[2],b.h,P,{bevel:.35}),{tone:b.tone,crease:'faint'})});}
+    const out=fixed.map(b=>{const d=shifts[b.part].map(v=>v*apart),v=axisVector(P,d);return{...b,center:b.center.map((v,i)=>v+d[i]),svg:metal(b.part,b.svg),offset:v};});
+    for(const b of leaf){const d=shifts[b.part].map(v=>v*apart),rr=Math.min(4,Math.max(.4,Math.min(b.plan.w,b.plan.d)/2)),plan=roundedPlan(b.plan,rr).map(p=>{const r=rotate(p,angle);return[r[0]+d[0],r[1]+d[1]];}),c=rotate([b.plan.x+b.plan.w/2,b.plan.y+b.plan.d/2],angle);out.push({...b,layer:b.layer??2,center:[c[0]+d[0],c[1]+d[1],b.z+b.h/2+d[2]],svg:metal(b.part,solidSvg(extrude(plan,b.z+d[2],b.h,P,{bevel:.35}),{tone:b.tone,crease:'faint'}))});}
     return out.sort((a,b)=>a.layer-b.layer||depthOf(a.center,P)-depthOf(b.center,P));
   }
   function electronics(apart=0){return Object.entries(detailParts).map(([part,svg])=>{const h={enclosure:0,shield:29,esp:72,relay:44,converter:39,protection:24,connectors:0}[part],v=axisVector(Q,[0,0,h*apart]);return{part,name:'electronics-'+part,svg,offset:v};});}

@@ -31,6 +31,7 @@ test('the production document declares language, description and social metadata
   assert.match(html, /<html lang="es-AR">/);
   assert.match(html, /<meta name="description" content="[^"]{40,}"/);
   assert.match(html, /<meta property="og:title"/);
-  assert.match(html, /<meta property="og:image" content="\/capturas\/flujo\.png"/);
+  assert.match(html, /<meta property="og:image" content="\/flujo\.png"/);
+  assert.ok(exists('public/flujo.png'), 'the social image must ship in public/');
   assert.match(html, /<link rel="icon" href="\/demo-icon\.svg"/);
 });
