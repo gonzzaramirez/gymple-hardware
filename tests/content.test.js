@@ -10,7 +10,7 @@ test('every drawn part has a catalog entry', () => {
   for (const id of ids) assert.ok(C.parts[id], `missing catalog entry for ${id}`);
 });
 
-test('the four groups cover every part exactly once', () => {
+test('the five groups cover every part exactly once', () => {
   const grouped = new Set();
   for (const group of C.groups) {
     assert.ok(group.id && group.name, 'group needs id and name');
@@ -23,11 +23,14 @@ test('the four groups cover every part exactly once', () => {
   assert.equal(grouped.size, Object.keys(C.parts).length);
 });
 
-test('copy avoids Spain vocabulary and keeps the simple prototype story', () => {
+test('copy avoids Spain vocabulary and keeps the MVP story', () => {
   const text = JSON.stringify(C);
   assert.doesNotMatch(text, /\bportillo\b|\bmóvil\b|\bordenador\b|\bcajón\b|\bmando\b/i);
   assert.match(text, /caja impresa/i);
   assert.match(text, /un solo transformador para todo/i);
-  assert.ok(C.lessons.length === 33);
-  assert.ok(Object.keys(C.parts).length === 17);
+  assert.match(text, /la hace herrería/i);
+  assert.equal(C.groups.length, 5);
+  assert.equal(C.lessons.length, 28);
+  assert.equal(Object.keys(C.parts).length, 17);
+  assert.ok(!C.lessons.some((l) => l.scene === 'mechanics' || l.scene.startsWith('solder')), 'el tutorial no arma la estructura ni suelda');
 });
