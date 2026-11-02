@@ -9,7 +9,7 @@ const GympleDemoModel=(()=>{
     const remoteAvailable=s.supply&&s.control&&s.network&&!s.halted&&!s.emergency;
     if(!s.supply){coil=false;magnet=false;reason='Sin 12 V no hay nada: ni imán ni electrónica.';}
     else if(!s.control){coil=false;magnet=true;reason='Sin los 5 V de control, el relé vuelve a NC. Si hay 12 V, el imán puede seguir pegado.';}
-    else if(s.halted||!s.network){coil=null;contact='unknown';magnet=null;reason=s.halted?'ESP bloqueada: la maqueta no sabe qué hace el control.':'Sin internet no sabemos qué hace el relé. No inventamos una política offline.';}
+    else if(s.halted||!s.network){coil=null;contact='unknown';magnet=null;reason=s.halted?'ESP bloqueada: el sistema no sabe qué hace el control.':'Sin internet no sabemos qué hace el relé. No inventamos una política offline.';}
     else if(command==='authorized'){coil=true;contact='open';magnet=false;reason='Autorización de mentira: la bobina tira y el NC se abre. La puerta no se mueve sola.';}
     else if(command==='denied'){reason='Denegado de mentira: no se libera el imán.';}
     if(s.welded&&s.supply){contact='closed';magnet=true;reason='Si el NC queda pegado, la orden del control no corta esta rama.';}

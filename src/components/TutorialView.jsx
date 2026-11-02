@@ -1,14 +1,14 @@
 import { GympleContent } from '../lab/gymple-content.js';
 export function TutorialView({ active }) {
   return (
-<section id="view-tutorial" role="tabpanel" aria-labelledby="tab-tutorial" hidden={!active}><div className="view-heading"><div><h1>Armala desde cero.</h1>
-<p>Un paso, un gesto y listo. Aprender no es lo mismo que probarlo.</p>
+<section id="view-tutorial" role="tabpanel" aria-labelledby="tab-tutorial" hidden={!active}><div className="view-heading"><div><h1>Armá la caja y conectá la cerradura.</h1>
+<p>Un paso, un gesto y listo. La estructura de metal la hace herrería: acá va solo la caja, la electrónica y la cerradura.</p>
 </div>
-<span id="tutorial-count" className="eyebrow">PASO 01 / 33</span></div>
+<span id="tutorial-count" className="eyebrow">PASO 01 / {GympleContent.lessons.length}</span></div>
 <div className="tutorial-navigation"><button id="tutorial-prev">← Anterior</button><label>Paso <select id="tutorial-select" defaultValue="0">{GympleContent.lessons.map((lesson,index) => <option key={lesson.scene + index} value={index}>{String(index + 1).padStart(2,"0")} · {lesson.title}</option>)}</select>
 </label>
 <button id="tutorial-next">Siguiente →</button></div>
-<div className="lab-card tutorial-card"><div className="canvas-column"><div id="tutorial-stage" className="iso-plate" tabIndex="0" role="group" aria-label="Paso de armado. Espacio reproduce o pausa. Flechas recorren el paso."><div className="card-meta"><span id="tutorial-scene-label">FIG. 03 / MESA VACÍA</span><span>MAQUETA · SIN ENCHUFAR</span></div>
+<div className="lab-card tutorial-card"><div className="canvas-column"><div id="tutorial-stage" className="iso-plate" tabIndex="0" role="group" aria-label="Paso de armado. Espacio reproduce o pausa. Flechas recorren el paso."><div className="card-meta"><span id="tutorial-scene-label">FIG. 03 / MESA VACÍA</span><span>SIN ENCHUFAR</span></div>
 <svg id="tutorial-svg" className="iso-svg" viewBox="0 0 840 560" role="group" aria-label="Gesto del paso actual"></svg>
 <div className="card-meta bottom"><span id="tutorial-gesture">Mesa vacía</span><span id="tutorial-readout" data-readout="">EMPIEZA</span></div>
 </div>

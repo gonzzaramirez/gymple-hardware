@@ -1,6 +1,6 @@
 # Guía eléctrica del prototipo
 
-**Esto es una maqueta, no una puerta instalada.** El ciclo automático no demuestra un mecanismo real. Ningún paso de esta guía habilita bloquear una puerta de verdad.
+**Esto describe una caja y una cerradura, no una puerta instalada.** El ciclo automático no demuestra un mecanismo real. Ningún paso de esta guía habilita bloquear una puerta de verdad.
 
 ## La idea en una frase
 
@@ -8,9 +8,9 @@ Una caja impresa en 3D guarda la ESP32, el relé, el conversor y las borneras; a
 
 ## La puerta
 
-El imán de 12 V **traba** la armadura cuando la puerta está cerrada. No la abre. Abrir y cerrar a mano es parte de la maqueta. Para una puerta real falta definir el resorte o el cierre, la fuerza, el recorrido y la salida.
+El imán de 12 V **traba** la armadura cuando la puerta está cerrada. No la abre. Abrir y cerrar a mano es parte del ciclo. Para una puerta real falta definir el resorte o el cierre, la fuerza, el recorrido y la salida.
 
-La bisagra es un eje impreso con dos bujes. Si la puerta pesa, el eje se dobla: probá con la puerta puesta antes de confiar en ella.
+La bisagra es de herrería, no impresa: la define el metalista con el peso real de la puerta. Si el eje queda chico, se vence con el uso.
 
 ## Un transformador, dos ramas
 
@@ -68,4 +68,4 @@ Si soldás, practicá con retazos sueltos y desenchufados. Gafas, extracción y 
 - La puerta cierra, el imán traba y la armadura no roza.
 - Alguien que sepa revisó las conexiones y la salida.
 
-Si falta cualquiera de estos puntos, no es una puerta: es una maqueta para mirar.
+Si falta cualquiera de estos puntos, no es una puerta: es una demo para mirar.

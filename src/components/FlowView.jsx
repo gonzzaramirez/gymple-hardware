@@ -1,6 +1,6 @@
 export function FlowView({ active }) {
   return (
-<section id="view-flow" role="tabpanel" aria-labelledby="tab-flow" hidden={!active}><div className="view-heading"><div><h1>Poné el DNI y mirá cómo abre.</h1>
+<section id="view-flow" role="tabpanel" aria-labelledby="tab-flow" hidden={!active}><div className="view-heading"><div><h1>Poné el DNI y mirá cómo libera.</h1>
 <p>DNI de prueba <button className="fixture-inline" data-fill="allow">11111111</button></p>
 </div>
 </div>
@@ -8,13 +8,13 @@ export function FlowView({ active }) {
 <div className="lab-card simple-flow"><div id="flow-stage" className="flow-workspace iso-plate" tabIndex="0" role="group" aria-label="Teclado numérico. Solo ejemplos ficticios; números, Retroceso y Enter."><div className="pad-column"><svg id="pc-pad" viewBox="0 0 310 475" role="group" aria-label="Numpad de PC, vista de frente"></svg>
 <div className="pad-edit"><button id="flow-back" aria-label="Borrar un dígito">⌫ Borrar</button><button id="flow-clear">Limpiar</button></div>
 </div>
-<div className="gate-column"><div className="card-meta"><span>PUERTA DE LA MAQUETA / DEMO</span><span id="flow-angle">0°</span></div>
-<svg id="flow-svg" className="iso-svg" viewBox="0 0 1000 650" role="img" aria-label="Puerta de la maqueta con bisagra, caja impresa y cerradura electromagnética"></svg>
+<div className="gate-column"><div className="card-meta"><span>PUERTA DE METAL / DEMO</span><span id="flow-angle">0°</span></div>
+<svg id="flow-svg" className="iso-svg" viewBox="0 0 1000 650" role="img" aria-label="Puerta de metal con bisagra de herrería, caja impresa y cerradura electromagnética"></svg>
 <div className="cycle-status"><span id="flow-status" role="status"></span><small id="flow-readout" data-readout=""></small></div>
 </div>
 </div>
 <div className="simple-controls"><button id="flow-pause" disabled>Ⅱ Pausar</button><button id="flow-next" hidden>Siguiente paso →</button><button id="flow-reset">↺ Empezar de nuevo</button><span id="flow-notice" className="notice"></span></div>
-<p className="motion-disclaimer">Movimiento de mentira: el mecanismo de apertura y retorno todavía no está definido. El imán traba la puerta, no la empuja.</p>
+<p className="motion-disclaimer">El imán traba y suelta; la persona empuja. El retorno de la puerta todavía no está definido: el imán no la mueve.</p>
 </div>
 
 <details className="secondary"><summary>Ejemplos, fallas y límites</summary><p>Sin internet ni servidor. No pongas DNI reales: no se guarda ni se envía nada. <button data-fill="deny">Probar uno que no entra: 22222222</button> Ningún otro número entra. El numpad es una referencia: falta definir cómo lo lee la compu.</p>

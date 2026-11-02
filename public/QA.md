@@ -1,6 +1,6 @@
 # Qué se probó y qué no
 
-**Revisión favorable como maqueta y taller didáctico.** No es aprobación de un equipo físico, soldadura real ni instalación.
+**Revisión favorable como MVP y taller didáctico.** No es aprobación de un equipo físico, soldadura real ni instalación.
 
 ## Alcance
 
@@ -16,7 +16,7 @@ La entrada es un proyecto Vite + React con JSX/ESM locales. Esta revisión **sí
 - Numpad por clic y por teclado (8 dígitos, Retroceso, Escape, Enter). Pausa/continuación y reinicio. Con la vista Partes activa, el teclado no altera la entrada.
 - Fallas: corte de 12 V, sin control, relé pegado, botón de salida y restablecimiento. Una falla corta el ciclo.
 - 17 piezas con inspector completo; 9 piezas de la puerta interactivas; separación 0–100 %.
-- 33 pasos × 3 gestos: todos dibujan contenido visible, sin `NaN` ni readouts vacíos. Velocidad 0,5×/1×/1,5× validada.
+- 28 pasos × 3 gestos: todos dibujan contenido visible, sin `NaN` ni readouts vacíos. Velocidad 0,5×/1×/1,5× validada.
 - Movimiento reducido: aparecen pasos explícitos; cuatro clics llevan el ciclo de `released` a `complete`.
 - Teclado: flechas/Home/End cambian de pestaña y el foco acompaña a la pestaña activa.
 - Celular de 390 px: sin scroll horizontal; tarjetas de piezas y tutorial ajustadas al viewBox.

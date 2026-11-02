@@ -1,13 +1,13 @@
 import { GympleContent } from '../lab/gymple-content.js';
 export function PartsView({ active }) {
   return (
-<section id="view-parts" role="tabpanel" aria-labelledby="tab-parts" hidden={!active}><div className="view-heading"><div><h1>Todo lo que lleva la maqueta.</h1>
-<p>Elegí una pieza para ver dónde va y qué la alimenta.</p>
+<section id="view-parts" role="tabpanel" aria-labelledby="tab-parts" hidden={!active}><div className="view-heading"><div><h1>Todo lo que lleva el MVP.</h1>
+<p>Elegí una pieza para ver dónde va y qué la alimenta. Lo único impreso es la caja; la estructura de metal la hace herrería.</p>
 </div>
-<span className="eyebrow">PROTOTIPO CASERO · NO ES UN PLANO</span></div>
-<div className="lab-card"><div className="canvas-column"><div id="parts-stage" className="iso-plate" tabIndex="0" role="group" aria-label="Catálogo visual. Elegí una pieza con los botones del catálogo."><div className="card-meta"><span>FIG. 02 / PIEZAS DE LA MAQUETA</span><span id="parts-scene-label">PUERTA Y ESTRUCTURA</span></div>
-<svg id="parts-svg" className="iso-svg" viewBox="0 0 1000 650" role="group" aria-label="Piezas de la maqueta"></svg>
-<div className="card-meta bottom"><span id="parts-hint">ESTO ES UNA MAQUETA, NO UNA INSTALACIÓN</span><span id="parts-readout" data-readout="">ARMADO</span></div>
+<span className="eyebrow">CAJA IMPRESA + ESTRUCTURA DE METAL</span></div>
+<div className="lab-card"><div className="canvas-column"><div id="parts-stage" className="iso-plate" tabIndex="0" role="group" aria-label="Catálogo visual. Elegí una pieza con los botones del catálogo."><div className="card-meta"><span>FIG. 02 / PIEZAS DEL MVP</span><span id="parts-scene-label">PUERTA Y ESTRUCTURA</span></div>
+<svg id="parts-svg" className="iso-svg" viewBox="0 0 1000 650" role="group" aria-label="Piezas del MVP"></svg>
+<div className="card-meta bottom"><span id="parts-hint">LO IMPRESO ES LA CAJA; EL METAL ES HERRERÍA</span><span id="parts-readout" data-readout="">ARMADO</span></div>
 </div>
 <div className="local-controls"><label>Separar <input id="parts-explode" type="range" min="0" max="100" defaultValue="0" aria-label="Separar las piezas de la maqueta" /></label>
 <span>Solo para mirar. No agrega conexiones.</span></div>

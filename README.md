@@ -1,12 +1,12 @@
-# Gymple — puerta, caja y numpad
+# Gymple — control de acceso (MVP)
 
-Maqueta casera de una puerta: **una caja impresa en 3D con toda la lógica adentro**, la estructura, una cerradura electromagnética, **un solo transformador de 12 V** y un numpad USB. No es un control de acceso validado ni una demostración de identidad real. El mecanismo de apertura/retorno sigue por definir.
+MVP de control de acceso para un gimnasio: **una caja impresa en 3D con toda la lógica adentro**, montada sobre una **estructura de metal que hace herrería** (base, marco, puerta y anclaje en Z), una cerradura electromagnética EM-180, **un solo transformador de 12 V** y un numpad USB. Lo único impreso es la caja. La estructura metálica queda fuera de nuestro alcance.
 
-Tres vistas: flujo con numpad, las 17 piezas de la maqueta y un tutorial de 33 pasos.
+Tres vistas: flujo con numpad, las 17 piezas del MVP y un tutorial de 28 pasos (caja + cerradura).
 
 ## Estado
 
-Versión **1.0.0**, lista para presentar como maqueta local. El build de producción se ejecuta y se verifica; ver [Verificación](#verificación).
+Versión **1.1.0**, lista para presentar como MVP local. El build de producción se ejecuta y se verifica; ver [Verificación](#verificación).
 
 ## Desarrollo
 
