@@ -20,6 +20,7 @@ test('entry is a real JSX module, not classic-script static HTML', () => {
   const app=readFileSync(new URL('../src/App.jsx',import.meta.url),'utf8');
   assert.match(app,/<FlowView/);
   assert.match(app,/<PartsView/);
+  assert.match(app,/<InsideView/);
   assert.doesNotMatch(app,/<TutorialView/);
   assert.doesNotMatch(app,/dangerouslySetInnerHTML/);
 });

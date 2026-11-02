@@ -30,7 +30,18 @@ const GympleContent=(()=>{
     exit:{name:'Botón de salida',group:'power',role:'Botón que corta la cerradura desde adentro, sin pasar por la ESP32. Va con cable hasta la rama de 12 V.',location:'En el poste de cierre, al lado de la puerta (en obra va a la pared).',energy:'Corta la rama de 12 V de la cerradura.',control:'No pasa por la ESP32.',pending:'En una puerta real es obligatorio. Probá que corte aunque la ESP32 esté colgada.'},
     terminal:{name:'Numpad USB',group:'power',role:'El teclado numérico que escribe en la compu. Hoy va por USB a la PC; la interfaz con el sistema es una decisión pendiente.',location:'En el poste de cierre, junto al botón (en obra va a la pared).',energy:'Lo alimenta la compu por USB.',control:'Manda los dígitos a la compu; no va a un GPIO.',pending:'Modelo e interfaz. El dibujo no define cómo lo lee el sistema.'}
   };
-  return Object.freeze({parts,groups});
+  const flows={
+    case:'Es el alojamiento: no conduce ni decide. Todo lo que pasa acá adentro ocurre en el resto de las piezas.',
+    enclosure:'Cierra la caja y deja salir los cables por el pasacables. No participa del circuito.',
+    esp:'Recibe los dígitos por USB, valida el DNI y pone el GPIO en alto durante la ventana de acceso. No maneja corriente.',
+    shield:'Sólo mecánica y borneras: no cambia tensiones ni señal.',
+    relay:'El GPIO energiza la bobina; el contacto COM–NO cierra y deja pasar los 12 V a la cerradura. Al soltar, abre.',
+    converter:'Toma 12 V de la bornera y entrega 5 V estables a la ESP32 y al módulo de relé.',
+    protection:'El fusible corta la rama si la cerradura o el cable fallan; las borneras reparten 12 V a relé y conversor.',
+    connectors:'Permiten abrir la caja sin cortar cables y sacar la línea de la cerradura por el pasacables.',
+    magnet:'Se energiza con los 12 V que llegan del relé. Sin tensión, libera. No tiene lógica propia.'
+  };
+  return Object.freeze({parts,groups,flows});
 })();
 
 export { GympleContent };

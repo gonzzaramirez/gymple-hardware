@@ -145,7 +145,21 @@ const PortilloArt=(()=>{
     return out.sort((a,b)=>a.layer-b.layer||depthOf(a.center,P)-depthOf(b.center,P));
   }
   function electronics(apart=0){return Object.entries(detailParts).map(([part,svg])=>{const h={enclosure:0,shield:29,esp:72,relay:44,converter:39,protection:24,connectors:0}[part],v=axisVector(Q,[0,0,h*apart]);return{part,name:'electronics-'+part,svg,offset:v};});}
-  return Object.freeze({P,Q,gate,electronics,detailsAt,rotate,detailSolids,partCount:count,baseHalo:`<path class="iso-halo" d="${haloOf(gatePlan,-20,15,P)}"/>`});
+  // Interior wiring: what runs inside the box, drawn over the isometric boards.
+  const wirePts=(pts)=>pathOf(pts.map(([x,y,z=30])=>at([x,y,z],Q)),false);
+  const flowLabel=(x,y,z,text)=>({text,at:at([x,y,z],Q)});
+  function interior(){
+    const flows=[
+      {id:'entrada',kind:'12',parts:['protection','connectors'],d:wirePts([[126,82],[126,12],[121,-6],[121,-13]]),label:flowLabel(133,-6,34,'12 V')},
+      {id:'rele',kind:'12',parts:['protection','relay'],d:wirePts([[121,-13],[121,-36],[92,-36]]),label:null},
+      {id:'cerradura',kind:'12',parts:['relay','connectors'],d:wirePts([[92,-36],[116,-36],[116,82]]),label:flowLabel(122,60,34,'a la cerradura')},
+      {id:'convertidor',kind:'12',parts:['protection','converter'],d:wirePts([[121,-13],[121,34],[105,34]]),label:null},
+      {id:'cinco',kind:'5',parts:['converter','esp','relay'],d:wirePts([[62,34],[62,58],[-76,58],[-76,52]]),label:flowLabel(20,64,34,'5 V')},
+      {id:'senal',kind:'sig',parts:['esp','relay'],d:wirePts([[-50,-2],[8,-2],[8,-38],[24,-38]]),label:flowLabel(2,-48,34,'GPIO')}
+    ];
+    return {modules:electronics(0),flows};
+  }
+  return Object.freeze({P,Q,gate,electronics,interior,detailsAt,rotate,detailSolids,partCount:count,baseHalo:`<path class="iso-halo" d="${haloOf(gatePlan,-20,15,P)}"/>`});
 
 })();
 export { PortilloArt };
