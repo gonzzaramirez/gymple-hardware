@@ -48,11 +48,11 @@ test('pause and fault cancel motion without queued actuation', () => {
   assert.equal(F.electrical(state).magnet,false);
 });
 
-test('current content is 17 parts and 28 lessons; box and lock, no metal structure', () => {
-  assert.equal(Object.keys(C.parts).length,17);
-  assert.equal(C.lessons.length,28);
-  assert.ok(C.lessons.findIndex(l=>l.scene==='route')<C.lessons.findIndex(l=>l.scene==='probe'));
-  assert.ok(C.lessons.some(l=>l.scene==='power-lock'));
-  assert.ok(!C.lessons.some(l=>l.scene==='mechanics'));
-  assert.ok(!C.lessons.some(l=>l.scene.startsWith('solder')));
+test('current content is 18 parts; the assembly is drawn with a small printed box', () => {
+  assert.equal(Object.keys(C.parts).length,18);
+  assert.ok(!('lessons' in C));
+  assert.ok(C.parts.case && C.parts.jamb && C.parts.magnet);
+  assert.match(C.parts.case.role, /caja chica/i);
+  assert.match(C.parts.magnet.role, /cable corto/i);
+  assert.match(C.parts.exit.location, /poste de cierre/i);
 });

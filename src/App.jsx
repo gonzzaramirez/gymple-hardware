@@ -1,14 +1,12 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import { FlowView } from './components/FlowView.jsx';
 import { PartsView } from './components/PartsView.jsx';
-import { TutorialView } from './components/TutorialView.jsx';
 import { TechnicalHelp } from './components/TechnicalHelp.jsx';
 import { mountLab } from './lab/controller.js';
 
 const views = [
   ['flow', 'El ciclo'],
-  ['parts', 'Las piezas'],
-  ['tutorial', 'La caja y la cerradura'],
+  ['parts', 'El conjunto'],
 ];
 
 function ViewTabs({ view, onChange }) {
@@ -49,7 +47,6 @@ export default function App() {
       <ViewTabs view={view} onChange={setView} />
       <FlowView active={view === 'flow'} />
       <PartsView active={view === 'parts'} />
-      <TutorialView active={view === 'tutorial'} />
       <TechnicalHelp />
       <footer>GYMPLE / CONTROL DE ACCESO · CAJA IMPRESA + ESTRUCTURA DE METAL · DEMO SIN HARDWARE CONECTADO</footer>
       <div id="announcement" className="sr-only" aria-live="polite" />

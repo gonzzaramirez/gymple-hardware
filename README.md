@@ -2,7 +2,7 @@
 
 MVP de control de acceso para un gimnasio: **una caja impresa en 3D con toda la lógica adentro**, montada sobre una **estructura de metal que hace herrería** (base, marco, puerta y anclaje en Z), una cerradura electromagnética EM-180, **un solo transformador de 12 V** y un numpad USB. Lo único impreso es la caja. La estructura metálica queda fuera de nuestro alcance.
 
-Tres vistas: flujo con numpad, las 17 piezas del MVP y un tutorial de 28 pasos (caja + cerradura).
+Dos vistas: el ciclo con numpad y el conjunto explosionado (18 piezas, cada una con qué hace y qué falta definir).
 
 ## Estado
 

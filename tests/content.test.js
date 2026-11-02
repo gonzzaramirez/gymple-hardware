@@ -27,10 +27,11 @@ test('copy avoids Spain vocabulary and keeps the MVP story', () => {
   const text = JSON.stringify(C);
   assert.doesNotMatch(text, /\bportillo\b|\bmóvil\b|\bordenador\b|\bcajón\b|\bmando\b/i);
   assert.match(text, /caja impresa/i);
-  assert.match(text, /un solo transformador para todo/i);
+  assert.match(text, /un solo cargador para todo/i);
+  assert.match(text, /un cable corto/i);
   assert.match(text, /la hace herrería/i);
   assert.equal(C.groups.length, 5);
-  assert.equal(C.lessons.length, 28);
-  assert.equal(Object.keys(C.parts).length, 17);
-  assert.ok(!C.lessons.some((l) => l.scene === 'mechanics' || l.scene.startsWith('solder')), 'el tutorial no arma la estructura ni suelda');
+  assert.equal(Object.keys(C.parts).length, 18);
+  assert.ok(!('lessons' in C), 'no hay tutorial por pasos: lo reemplaza el conjunto explosionado');
+  for (const id of ['jamb', 'magnet', 'source', 'exit']) assert.ok(C.parts[id], `falta la pieza ${id}`);
 });

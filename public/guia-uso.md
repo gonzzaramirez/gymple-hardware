@@ -10,7 +10,7 @@
 
 - **Flujo completo:** numpad de PC y ciclo de la puerta, sin servidor.
 - **Todo lo que lleva el MVP:** la caja impresa, la electrónica de adentro, la cerradura, la estructura de metal (herrería) y los datos que faltan.
-- **La caja y la cerradura:** 28 pasos para armar la caja, conectar la cerradura y un solo transformador de 12 V. La estructura de metal no la hacemos nosotros.
+- **El conjunto:** todas las piezas montadas que se separan con un control. Tocás una y te cuenta qué hace, dónde va y qué falta definir. Lo único impreso es la caja chica; la estructura de metal no la hacemos nosotros.
 
 El ejemplo **22222222** no entra; está en los detalles. Otros números no autorizan por longitud. **No pongas DNI reales.** No hay internet, backend, firmware, equipos conectados ni validación de identidad. La entrada vive en memoria: no se guarda, no va a la URL, no se exporta.
 
